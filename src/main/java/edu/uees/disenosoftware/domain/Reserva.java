@@ -16,11 +16,14 @@ public class Reserva {
     }
 
     public void confirmar() {
-        estado = EstadoReserva.CONFIRMADA;
+        if (this.estado == EstadoReserva.CANCELADA) {
+            throw new IllegalStateException("No se puede confirmar una reserva cancelada.");
+        }
+        this.estado = EstadoReserva.CONFIRMADA;
     }
 
     public void cancelar() {
-        estado = EstadoReserva.CANCELADA;
+        this.estado = EstadoReserva.CANCELADA;
     }
 
     public boolean isCancelada() {
