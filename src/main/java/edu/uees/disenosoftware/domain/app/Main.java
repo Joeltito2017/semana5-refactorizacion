@@ -22,7 +22,7 @@ public class Main {
         );
         ServicioReservas servicio =
                 new ServicioReservas();
-        servicio.proc(reserva, 4);
+        servicio.procesarReserva(reserva, 4);
 
         System.out.println(
                 "Estado final: " + reserva.getEstado()
