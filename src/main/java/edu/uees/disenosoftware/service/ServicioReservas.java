@@ -9,7 +9,9 @@ public class ServicioReservas {
         if (reserva.getEstudiante() == null) return;
         if (reserva.getDocente() == null) return;
         if (reserva.isCancelada()) return;
-        if (horasAnticipacion < 2) return;
+
+        // ¡Aquí llamamos al método que extrajimos!
+        validarAnticipacion(horasAnticipacion);
 
         // Ejecución de negocio
         reserva.confirmar();
@@ -20,9 +22,16 @@ public class ServicioReservas {
 
     private void imprimirDetallesReserva(Reserva reserva) {
         System.out.println("Procesando...");
-        System.out.println("Reserva: " + reserva.getId());
+        System.out.println("Reserva: " + reserva.getId().valor()); // Usamos .valor() para el record
         System.out.println("Estudiante: " + reserva.getEstudiante().getNombre());
         System.out.println("Docente: " + reserva.getDocente().getNombre());
         System.out.println("Reserva confirmada");
+    }
+
+    private void validarAnticipacion(int horasAnticipacion) {
+        int HORAS_MINIMAS_REQUERIDAS = 2;
+        if (horasAnticipacion < HORAS_MINIMAS_REQUERIDAS) {
+            throw new IllegalArgumentException("La reserva debe realizarse con al menos " + HORAS_MINIMAS_REQUERIDAS + " horas de anticipación.");
+        }
     }
 }
