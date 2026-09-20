@@ -4,13 +4,11 @@ import edu.uees.disenosoftware.domain.Reserva;
 
 public class ServicioReservas {
     public void procesarReserva(Reserva reserva, int horasAnticipacion) {
-        // Cláusulas de guarda
-        if (reserva == null) return;
-        if (reserva.getEstudiante() == null) return;
-        if (reserva.getDocente() == null) return;
-        if (reserva.isCancelada()) return;
+        // Descomposición de condicionales: Delegamos la validación a un método limpio
+        if (!esReservaValida(reserva)) {
+            return;
+        }
 
-        // ¡Aquí llamamos al método que extrajimos!
         validarAnticipacion(horasAnticipacion);
 
         // Ejecución de negocio
@@ -20,9 +18,18 @@ public class ServicioReservas {
         imprimirDetallesReserva(reserva);
     }
 
+    // Condicional complejo descompuesto en un método con nombre autoexplicativo
+    private boolean esReservaValida(Reserva reserva) {
+        if (reserva == null) return false;
+        if (reserva.getEstudiante() == null) return false;
+        if (reserva.getDocente() == null) return false;
+        if (reserva.isCancelada()) return false;
+        return true;
+    }
+
     private void imprimirDetallesReserva(Reserva reserva) {
         System.out.println("Procesando...");
-        System.out.println("Reserva: " + reserva.getId().valor()); // Usamos .valor() para el record
+        System.out.println("Reserva: " + reserva.getId().valor());
         System.out.println("Estudiante: " + reserva.getEstudiante().getNombre());
         System.out.println("Docente: " + reserva.getDocente().getNombre());
         System.out.println("Reserva confirmada");
