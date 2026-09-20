@@ -1,14 +1,12 @@
 package edu.uees.disenosoftware.domain;
 
 public class Reserva {
-    private final String id;
+    private final IdReserva id; // Cambiado de String a IdReserva
     private final Estudiante estudiante;
     private final Docente docente;
     private EstadoReserva estado;
 
-    public Reserva(String id,
-                   Estudiante estudiante,
-                   Docente docente) {
+    public Reserva(IdReserva id, Estudiante estudiante, Docente docente) {
         this.id = id;
         this.estudiante = estudiante;
         this.docente = docente;
@@ -30,7 +28,7 @@ public class Reserva {
         return estado == EstadoReserva.CANCELADA;
     }
 
-    public String getId() { return id; }
+    public IdReserva getId() { return id; }
     public Estudiante getEstudiante() { return estudiante; }
     public Docente getDocente() { return docente; }
     public EstadoReserva getEstado() { return estado; }
